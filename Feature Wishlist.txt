@@ -7,8 +7,25 @@ Player Inventories managed by app, any player can always see and modify inventor
 	Things like bags of holding can be recursive inventories
 DM has a party tracker screen where they can see all of the player resources
 Deploy on Netlify
-Items load from JSON
-Word map with ability for players to travel as a group to new or old locations
+Items load from JSON 
+	Each Json should have...
+		Description of item
+		List of actions players can take with the item, and what happens when they take do so
+			Examine, "you look at the book and ..." 
+			Pick up, "You pick up the artifact and ..."
+			etc.
+			Actions should be able to trigger events and skill checks
+				"Its a trap!"  Constitution saving throw
+				"You try to understand the text on the book" History check
+				"Someone notices you stealing that" A fight starts or something
+				etc.
+		Cost of items
+		Weight of items
+		Etc.
+World map with ability for players to travel as a group to new or old locations
+	World map handles travel time, consumption of food/travel resources
+		should give a pop-up to players of how much time and supplies travel will cost
+		players should vote on travel?
 	Potentally add ability to split the party?
 	Add automatic random encounters
 		DM ability to create random encounters 
