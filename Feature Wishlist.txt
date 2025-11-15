@@ -1,0 +1,16 @@
+Players can upload thier own images for what characters look like
+DM upload images for enemies, items, maps, etc
+DM create custom enemies, items, maps, etc
+Player Inventories managed by app, any player can always see and modify inventory
+	Inventories track weight
+	All items have Weight
+	Things like bags of holding can be recursive inventories
+DM has a party tracker screen where they can see all of the player resources
+Deploy on Netlify
+Items load from JSON
+Word map with ability for players to travel as a group to new or old locations
+	Potentally add ability to split the party?
+	Add automatic random encounters
+		DM ability to create random encounters 
+		DM ability to set up scripted travel encounters that appear as random encounters
+		
