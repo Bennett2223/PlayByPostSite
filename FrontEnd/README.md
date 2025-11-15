@@ -7,6 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 (It seems like you have to cd FrontEnd first so it's in the right directory) - Bennett
+
 also if you do cd frontend instead of FrontEnd it still works but gives a warning that
 there are errors
 
