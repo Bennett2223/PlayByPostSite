@@ -31,3 +31,4 @@ World map with ability for players to travel as a group to new or old locations
 		DM ability to create random encounters 
 		DM ability to set up scripted travel encounters that appear as random encounters
 		
+how does this work
