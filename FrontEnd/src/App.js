@@ -1,42 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState } from 'react';
-
+import { useState } from "react";
+import TabBar from "./TabBar";
+import ChatPanel from "./Components/ChatPanel";
+import InventoryScreen from "./PlayerScreens/InventoryScreen";
+import CharacterScreen from "./PlayerScreens/CharacterScreen";
+import LocalMapScreen from "./PlayerScreens/LocalMapScreen";
+import GlobalMapScreen from "./PlayerScreens/GlobalMapScreen";
+import "./App.css";
 
 function App() {
+  const [activeTab, setActiveTab] = useState(1);
+
+  const renderScreen = () => {
+    switch (activeTab) {
+      case 1: return <LocalMapScreen />;
+      case 2: return <InventoryScreen />;
+      case 3: return <CharacterScreen />;
+      case 4: return <GlobalMapScreen />;
+      default: return <InventoryScreen />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p> Where will this add text?</p>
-        <MyButton />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    // app-layout is a horizontal flex row — left panel and right panel side by side
+    <div className="app-layout">
+
+      {/* Left side: the tab content area + tab bar along the bottom */}
+      <div className="left-panel">
+        <div className="screen-container">
+          {renderScreen()}
+        </div>
+        <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
+
+      {/* Right side: the chat panel, always visible regardless of active tab */}
+      <ChatPanel />
+
     </div>
-  );
-}
-
-function MyButton() {
-  const [count, setCount] = useState(0);
-
-  function handleClick() {
-    setCount(count + 1);
-  }
-
-  return (
-    <button onClick={handleClick}>
-      Clicked {count} times
-    </button>
   );
 }
 

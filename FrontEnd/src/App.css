@@ -1,38 +1,44 @@
-.App {
-  text-align: center;
+/* Makes the whole app fill the screen with no extra margins */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+body {
+  background-color: #12121f;
   color: white;
+  font-family: sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+/* Side-by-side layout: left panel and chat panel */
+.app-layout {
+  display: flex;
+  height: 100vh;      /* Fill the full window height */
+  overflow: hidden;   /* Prevent the whole page from scrolling — panels scroll internally */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* The left panel grows to fill all remaining space after the chat panel */
+.left-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;  /* Stack screen content on top, tab bar on bottom */
+  overflow: hidden;
+}
+
+/* The screen content fills the left panel, with room for the tab bar */
+.screen-container {
+  flex: 1;
+  overflow-y: auto;   /* This area scrolls if content is tall */
+  padding: 20px;
+}
+
+/* Shared base styles for all screen placeholder pages */
+.screen h1 {
+  margin-bottom: 10px;
+  color: #aac4ff;
+}
+
+.screen p {
+  color: #888;
 }

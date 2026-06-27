@@ -1,3 +1,13 @@
+Screen with tabs along the bottom
+	ease of ability to add new tabs to the bottom
+	clicking on tabs will switch to them.
+
+
+ Right now, messages only live in React's memory — they disappear on refresh and aren't shared between players. The UI will be fully built and ready, but wiring it to the backend (so all players see the same chat in real time) is a separate step we'll tackle when we add login/character logic.
+
+
+
+
 Players can upload thier own images for what characters look like
 DM upload images for enemies, items, maps, etc
 DM create custom enemies, items, maps, etc

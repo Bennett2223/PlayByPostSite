@@ -11,6 +11,18 @@ In the project directory, you can run:
 also if you do cd frontend instead of FrontEnd it still works but gives a warning that
 there are errors
 
+# Claude
+To run it:
+Open two PowerShell terminals in VS Code (+ in the terminal panel), then:
+Terminal 1 — Frontend:
+powershellcd C:\Users\smith\Desktop\PlayByPostProject\FrontEnd
+npm start
+This starts React on http://localhost:3000 — that's the browser address you remembered.
+Terminal 2 — Backend:
+powershellcd C:\Users\smith\Desktop\PlayByPostProject\BackEnd
+node index.js
+# End Claude
+
 ### `npm start`
 
 Runs the app in the development mode.\

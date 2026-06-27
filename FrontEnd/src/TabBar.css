@@ -1,0 +1,34 @@
+/* This styles the outer container bar that runs across the bottom of the screen. */
+.tab-bar {
+  width: 100%;          /* Stretches all the way across the screen */
+  display: flex;        /* Makes the tabs line up side by side (horizontal row) */
+  background-color: #1e1e2e;  /* Dark navy/purple background color */
+  border-top: 2px solid #444; /* A subtle gray line separating the bar from content above */
+  z-index: 100;         /* Makes sure the bar draws ON TOP of other elements on the page */
+}
+
+/* This styles every tab button — both normal tabs and the "+" button share these basics. */
+.tab {
+  flex: 1;              /* Each tab grows equally to fill the available space */
+  padding: 10px;        /* Space inside the button around the text */
+  background: none;     /* No background by default (inherits the bar's color) */
+  border: none;         /* Removes the default browser border on buttons */
+  color: #aaa;          /* Light gray text for unselected tabs */
+  cursor: pointer;      /* Changes the mouse cursor to a hand when hovering */
+  font-size: 14px;
+  transition: background 0.2s; /* Makes the hover color change animate smoothly over 0.2 seconds */
+}
+
+/* This runs when the mouse is hovering over a tab but it hasn't been clicked yet. */
+.tab:hover {
+  background-color: #2e2e3e; /* Slightly lighter than the bar background */
+  color: white;
+}
+
+/* This runs when a tab has the "active" class (meaning it's the selected tab).
+   In TabBar.js, we add this class to whichever tab was last clicked. */
+.tab.active {
+  background-color: #3a3a5c; /* A more purple tone to show it's selected */
+  color: white;
+  border-top: 2px solid #7c7cff; /* A bright purple line on top highlights the active tab */
+}
