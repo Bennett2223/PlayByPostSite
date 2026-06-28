@@ -1,0 +1,90 @@
+.auth-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #12121f;
+}
+
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 360px;
+  padding: 40px;
+  background-color: #1a1a2e;
+  border: 1px solid #444;
+  border-radius: 10px;
+}
+
+.auth-title {
+  text-align: center;
+  font-size: 28px;
+  color: #ffd700;
+  margin-bottom: 4px;
+}
+
+/* The Log In / Create Account toggle */
+.auth-toggle {
+  display: flex;
+  border: 1px solid #444;
+  border-radius: 6px;
+  overflow: hidden; /* Makes the buttons share one rounded border */
+}
+
+.toggle-button {
+  flex: 1;
+  padding: 8px;
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+
+.toggle-button:hover {
+  color: white;
+  background-color: #2a2a3e;
+}
+
+/* The selected mode button */
+.toggle-active {
+  background-color: #3a3a5c;
+  color: white;
+}
+
+.auth-input {
+  padding: 10px 14px;
+  background-color: #12121f;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: white;
+  font-size: 15px;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #7c7cff;
+}
+
+.auth-error {
+  color: #ff6b6b;
+  font-size: 13px;
+}
+
+.auth-button {
+  padding: 11px;
+  background-color: #3a3a5c;
+  border: 1px solid #7c7cff;
+  border-radius: 6px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 4px;
+}
+
+.auth-button:hover {
+  background-color: #5a5a8c;
+}

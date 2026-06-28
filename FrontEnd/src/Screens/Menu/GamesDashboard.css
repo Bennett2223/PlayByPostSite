@@ -1,0 +1,221 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #12121f;
+  color: white;
+}
+
+/* Top bar with logo and username */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #1a1a2e;
+  border-bottom: 2px solid #444;
+}
+
+.dashboard-logo {
+  font-size: 22px;
+  color: #ffd700;
+}
+
+.dashboard-user-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dashboard-username {
+  color: #aac4ff;
+  font-size: 14px;
+}
+
+.logout-button {
+  padding: 5px 12px;
+  background: none;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #888;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.logout-button:hover {
+  color: white;
+  border-color: #aaa;
+}
+
+/* Scrollable main area */
+.dashboard-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto; /* Centers content on wide screens */
+}
+
+/* Create / Join buttons */
+.dashboard-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.action-button {
+  padding: 10px 20px;
+  background-color: #1e1e3a;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+
+.action-button:hover {
+  border-color: #aaa;
+  color: white;
+}
+
+/* Highlighted when its panel is open */
+.action-active {
+  background-color: #3a3a5c;
+  border-color: #7c7cff;
+  color: white;
+}
+
+.dashboard-message {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.msg-error   { background-color: #3a1a1a; color: #ff6b6b; }
+.msg-success { background-color: #1a3a1a; color: #6bff9e; }
+
+/* The create/join form panel */
+.dashboard-panel {
+  background-color: #1a1a2e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.dashboard-panel h3 {
+  color: #aac4ff;
+  margin-bottom: 6px;
+}
+
+.panel-hint {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+/* Input and button side by side */
+.panel-row {
+  display: flex;
+  gap: 8px;
+}
+
+.panel-input {
+  flex: 1;
+  padding: 9px 12px;
+  background-color: #12121f;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+}
+
+.panel-input:focus {
+  outline: none;
+  border-color: #7c7cff;
+}
+
+.panel-button {
+  padding: 9px 18px;
+  background-color: #3a3a5c;
+  border: 1px solid #7c7cff;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.panel-button:hover { background-color: #5a5a8c; }
+
+.section-title {
+  font-size: 18px;
+  color: #aac4ff;
+  margin-bottom: 12px;
+}
+
+.no-games-text {
+  color: #555;
+  font-size: 14px;
+}
+
+/* List of game cards */
+.game-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: #1a1a2e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.game-card:hover {
+  border-color: #7c7cff;
+  background-color: #1e1e3a;
+}
+
+.game-card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.game-name {
+  font-size: 16px;
+  color: white;
+}
+
+.game-role {
+  font-size: 13px;
+  color: #888;
+}
+
+.game-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.game-code {
+  font-size: 12px;
+  color: #ffd700;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+.enter-arrow {
+  color: #7c7cff;
+  font-size: 14px;
+}

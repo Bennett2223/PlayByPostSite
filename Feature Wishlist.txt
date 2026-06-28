@@ -1,13 +1,30 @@
-Screen with tabs along the bottom
-	ease of ability to add new tabs to the bottom
-	clicking on tabs will switch to them.
+DONE
+################################################################################
+	Screen with tabs along the bottom
+		ease of ability to add new tabs to the bottom
+		clicking on tabs will switch to them.
 
 
+IN PROGRESS
+###################################################################################################
+Lets start with the identity/name picker, then move on to the backend. Though the identity picker should be more of a login/create account screen. Once an account is made, a user should be able to see all of the games they are a part of, create new games, and join other games. When creating a game there will be exactly one DM (The user who created the game), and everyone who joins will join as a player.  Once a player joins a game they will need to create their character, and then they will be taken to the series of screens we have been making. The DM will need an entirely different suite of tabs in order to run a game. A single user may be a part of several games
+
+
+
+
+
+TODO
+###################################################################################################################
  Right now, messages only live in React's memory — they disappear on refresh and aren't shared between players. The UI will be fully built and ready, but wiring it to the backend (so all players see the same chat in real time) is a separate step we'll tackle when we add login/character logic.
 
+Will need a login page when the website is first loaded
+	save a cookie to skip this if possible
+Will need to diffentiate logging in as a player or DM
+some way to create a playgroup
 
 
 
+Whisper should only appear to the DM, the Person who whispered, and the target of the whisper
 Players can upload thier own images for what characters look like
 DM upload images for enemies, items, maps, etc
 DM create custom enemies, items, maps, etc

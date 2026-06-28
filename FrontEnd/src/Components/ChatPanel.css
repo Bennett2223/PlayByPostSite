@@ -188,3 +188,39 @@
 .send-button:hover {
   background-color: #5a5a8c;
 }
+/* Small circle in the header showing live connection status */
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;  /* Makes it a circle */
+  display: inline-block;
+}
+
+.dot-connected    { background-color: #6bff9e; }  /* Green = live */
+.dot-disconnected { background-color: #ff6b6b; }  /* Red = trying to reconnect */
+
+/* The whisper target dropdown — matches the styling of other inputs */
+.whisper-target-select {
+  width: 100%;
+  padding: 6px 10px;
+  background-color: #2a1a3a;
+  border: 1px solid #9b59b6;
+  border-radius: 4px;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.whisper-target-select:focus {
+  outline: none;
+  border-color: #d7aefb;
+}
+
+/* Shown when whisper is selected but no one else is connected */
+.whisper-no-targets {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  padding: 4px 0;
+  font-style: italic;
+}
