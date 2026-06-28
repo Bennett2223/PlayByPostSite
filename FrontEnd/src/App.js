@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { mockDB } from "./utils/mockDB";
+import { useState, useEffect } from "react";
+import * as api from "./utils/api";
 
 import TabBar                  from "./TabBar";
 import ChatPanel               from "./Components/ChatPanel";
@@ -38,53 +38,48 @@ const DM_TABS = [
 ];
 
 function App() {
-  const [activeTab, setActiveTab] = useState(1);
-
-  // The currently logged-in user ({ id, username }), or null if not logged in.
-  // We check localStorage on startup so the user stays logged in on refresh.
-  const [user, setUser] = useState(() => mockDB.getCurrentUser());
-
-  // The game the user has clicked into from the dashboard, or null.
-  // Includes a "role" field: "dm" or "player".
+  const [activeTab,    setActiveTab]    = useState(1);
+  const [user,         setUser]         = useState(null);
   const [selectedGame, setSelectedGame] = useState(null);
+  const [character,    setCharacter]    = useState(null);
+  const [gameMembers,  setGameMembers]  = useState([]);
 
-  // The player's character in the selected game, or null.
-  // DMs don't need a character, so this only matters for players.
-  const [character, setCharacter] = useState(null);
+  // Show a loading screen while we check for a saved session.
+  const [loading, setLoading] = useState(true);
 
-  // All members of the current game who have a chat identity.
-  // Passed to ChatPanel to populate the whisper dropdown.
-  const [gameMembers, setGameMembers] = useState([]);
+  // On startup, check if there's a valid saved token.
+  // If so, skip straight past the login screen.
+  useEffect(() => {
+    const savedUser = api.getCurrentUser();
+    if (savedUser) setUser(savedUser);
+    setLoading(false);
+  }, []);
 
-  // ── Event handlers ────────────────────────────────────
-
-  const handleLogin = (loggedInUser) => {
-    setUser(loggedInUser);
-  };
+  const handleLogin = (loggedInUser) => setUser(loggedInUser);
 
   const handleLogout = () => {
-    mockDB.logout();
+    api.logout();
     setUser(null);
     setSelectedGame(null);
     setCharacter(null);
+    setGameMembers([]);
   };
 
-  // Called when the player clicks a game card on the dashboard.
-  const handleEnterGame = (game) => {
+  const handleEnterGame = async (game) => {
+    console.log("Entering game as:", game);  // add this line
     setSelectedGame(game);
     setActiveTab(1);
 
-    // Load everyone in this game who has a chat identity
-    setGameMembers(mockDB.getGameMembers(game.id));
+    // Load members from the database
+    const members = await api.getGameMembers(game.id);
+    setGameMembers(members);
 
-    // If the user is a player, load their character for this game (if any).
     if (game.role === "player") {
-      const existingCharacter = mockDB.getCharacter(user.id, game.id);
+      const existingCharacter = await api.getCharacter(game.id);
       setCharacter(existingCharacter);
     }
   };
 
-  // Called when the player clicks "← Games" to return to the dashboard
   const handleLeaveGame = () => {
     setSelectedGame(null);
     setCharacter(null);
@@ -92,18 +87,25 @@ function App() {
     setActiveTab(1);
   };
 
-  const handleCharacterCreated = (newCharacter) => {
-    setCharacter(newCharacter);
+  const handleCharacterCreated = () => {
+    setSelectedGame(null);
+    setCharacter(null);
   };
 
-  // ── Routing ───────────────────────────────────────────
+  // Brief loading state while we check localStorage for a saved session
+  if (loading) {
+    return (
+      <div style={{ display:"flex", alignItems:"center", justifyContent:"center",
+                    height:"100vh", background:"#12121f", color:"#aaa" }}>
+        Loading...
+      </div>
+    );
+  }
 
-  // Step 1: Not logged in → show the login/register screen
   if (!user) {
     return <LoginRegisterScreen onLogin={handleLogin} />;
   }
 
-  // Step 2: Logged in but no game selected → show the game dashboard
   if (!selectedGame) {
     return (
       <GamesDashboard
@@ -114,7 +116,6 @@ function App() {
     );
   }
 
-  // Step 3: In a game as a player with no character → show character creation
   if (selectedGame.role === "player" && !character) {
     return (
       <CharacterCreationScreen
@@ -125,9 +126,9 @@ function App() {
     );
   }
 
-  // Step 4: In a game, identity resolved → show the main game layout
-  const isDM   = selectedGame.role === "dm";
-  const tabs   = isDM ? DM_TABS : PLAYER_TABS;
+  const isDM = selectedGame.role === "dm";
+  const tabs = isDM ? DM_TABS : PLAYER_TABS;
+
 
   const renderScreen = () => {
     if (isDM) {
@@ -149,32 +150,19 @@ function App() {
     }
   };
 
-  return (
+   return (
     <div className="app-layout">
       <div className="left-panel">
-
-        {/* Back button to return to the game dashboard */}
         <div className="game-header">
-          <button className="leave-game-button" onClick={handleLeaveGame}>
-            ← Games
-          </button>
+          <button className="leave-game-button" onClick={handleLeaveGame}>← Games</button>
           <span className="game-title">{selectedGame.name}</span>
           <span className="game-role-badge">
             {isDM ? "👑 DM" : `⚔️ ${character?.name}`}
           </span>
         </div>
-
-        <div className="screen-container">
-          {renderScreen()}
-        </div>
-
-        <TabBar
-          tabs={tabs}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-        />
+        <div className="screen-container">{renderScreen()}</div>
+        <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
       </div>
-
       <ChatPanel
         user={user}
         character={character}
@@ -185,5 +173,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

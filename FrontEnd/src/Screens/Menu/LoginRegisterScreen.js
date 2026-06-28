@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { mockDB } from "../../utils/mockDB";
+import * as api from "../../utils/api";
 import "./LoginRegisterScreen.css";
 
 // onLogin is called with the user object when login or registration succeeds.
@@ -14,27 +14,20 @@ export default function LoginRegisterScreen({ onLogin }) {
   const [confirmPassword, setConfirmPassword] = useState(""); // only needed for register
   const [error,           setError]           = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setError("");
-
-    if (!username.trim() || !password.trim()) {
-      setError("Please fill in all fields.");
-      return;
-    }
-
-    if (mode === "register") {
-      if (password !== confirmPassword) {
-        setError("Passwords do not match.");
-        return;
+    if (!username.trim() || !password.trim()) { setError("Please fill in all fields."); return; }
+    try {
+      if (mode === "register") {
+        if (password !== confirmPassword) { setError("Passwords do not match."); return; }
+        const user = await api.register(username.trim(), password);
+        onLogin(user);
+      } else {
+        const user = await api.login(username.trim(), password);
+        onLogin(user);
       }
-      const result = mockDB.register(username.trim(), password);
-      if (result.error) { setError(result.error); return; }
-      onLogin(result.user);
-
-    } else {
-      const result = mockDB.login(username.trim(), password);
-      if (result.error) { setError(result.error); return; }
-      onLogin(result.user);
+    } catch (err) {
+      setError(err.message);
     }
   };
 

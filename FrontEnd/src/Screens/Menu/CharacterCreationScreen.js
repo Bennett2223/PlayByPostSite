@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { mockDB } from "../../utils/mockDB";
+import * as api from "../../utils/api";
 import "./CharacterCreationScreen.css";
 
 // Basic class options — easy to expand later
@@ -18,17 +18,14 @@ export default function CharacterCreationScreen({ user, game, onCharacterCreated
   const [backstory,   setBackstory]   = useState("");
   const [error,       setError]       = useState("");
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (!name.trim()) { setError("Your character needs a name."); return; }
-
-    const result = mockDB.createCharacter(user.id, game.id, {
-      name:      name.trim(),
-      class:     charClass,
-      backstory: backstory.trim(),
-    });
-
-    if (result.error) { setError(result.error); return; }
-    onCharacterCreated(result.character);
+    try {
+      const character = await api.createCharacter(game.id, {
+        name: name.trim(), class: charClass, backstory: backstory.trim()
+      });
+      onCharacterCreated(character);
+    } catch (err) { setError(err.message); }
   };
 
   return (

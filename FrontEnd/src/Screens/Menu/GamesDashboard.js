@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { mockDB } from "../../utils/mockDB";
+import { useState, useEffect } from "react";
+import * as api from "../../utils/api";
 import "./GamesDashboard.css";
 
 // user       — the logged-in user object ({ id, username })
@@ -8,7 +8,10 @@ import "./GamesDashboard.css";
 export default function GamesDashboard({ user, onEnterGame, onLogout }) {
 
   // Load this user's games on first render
-  const [games, setGames] = useState(() => mockDB.getGamesForUser(user.id));
+  const [games, setGames] = useState([]);
+  useEffect(() => {
+    api.getGames().then(setGames);
+  }, []);
 
   // Which action panel is open: null, "create", or "join"
   const [activePanel, setActivePanel] = useState(null);
@@ -27,24 +30,26 @@ export default function GamesDashboard({ user, onEnterGame, onLogout }) {
     setMessage({ text: "", isError: false });
   };
 
-  const handleCreateGame = () => {
+  const handleCreateGame = async () => {
     if (!newGameName.trim()) { showMessage("Please enter a game name.", true); return; }
-    const result = mockDB.createGame(newGameName.trim(), user.id);
-    if (result.error) { showMessage(result.error, true); return; }
-    setGames(mockDB.getGamesForUser(user.id));
-    setNewGameName("");
-    setActivePanel(null);
-    showMessage(`"${result.game.name}" created! Share this code with your players: ${result.game.code}`);
+    try {
+      const game = await api.createGame(newGameName.trim());
+      setGames(await api.getGames());
+      setNewGameName("");
+      setActivePanel(null);
+      showMessage(`"${game.name}" created! Share this code: ${game.code}`);
+    } catch (err) { showMessage(err.message, true); }
   };
 
-  const handleJoinGame = () => {
+  const handleJoinGame = async () => {
     if (!joinCode.trim()) { showMessage("Please enter a game code.", true); return; }
-    const result = mockDB.joinGame(joinCode.trim(), user.id);
-    if (result.error) { showMessage(result.error, true); return; }
-    setGames(mockDB.getGamesForUser(user.id));
-    setJoinCode("");
-    setActivePanel(null);
-    showMessage(`Joined "${result.game.name}"! Create your character to get started.`);
+    try {
+      const game = await api.joinGame(joinCode.trim());
+      setGames(await api.getGames());
+      setJoinCode("");
+      setActivePanel(null);
+      showMessage(`Joined "${game.name}"! Create your character to get started.`);
+    } catch (err) { showMessage(err.message, true); }
   };
 
   return (

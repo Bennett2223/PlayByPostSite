@@ -1,0 +1,40 @@
+{
+  "id": "ancient-tome",
+  "name": "Ancient Tome",
+  "description": "A weathered book bound in cracked leather, filled with pages of cryptic text in a language few can read.",
+  "weight": 3,
+  "cost": 50,
+  "tags": ["book", "magical", "quest-item"],
+  "actions": [
+    {
+      "id": "examine",
+      "label": "Examine",
+      "result": "You look at the ancient tome and notice strange runes etched along the spine. The pages are yellowed with age.",
+      "trigger": null
+    },
+    {
+      "id": "read",
+      "label": "Read",
+      "result": "You attempt to decipher the cryptic text inside...",
+      "trigger": {
+        "type": "skill-check",
+        "skill": "History",
+        "dc": 15,
+        "success": "You successfully translate a passage revealing the location of a hidden vault beneath the city.",
+        "failure": "The script is ancient and too complex for you to decipher."
+      }
+    },
+    {
+      "id": "pick-up",
+      "label": "Pick Up",
+      "result": "You reach out and grasp the tome...",
+      "trigger": {
+        "type": "saving-throw",
+        "stat": "Constitution",
+        "dc": 12,
+        "success": "You feel a faint tingle as you lift it but nothing else happens.",
+        "failure": "A burst of necrotic energy surges through you. You take 1d6 psychic damage."
+      }
+    }
+  ]
+}
