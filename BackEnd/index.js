@@ -9,6 +9,8 @@ const { JWT_SECRET }  = require("./middleware/authMiddleware");
 const authRouter       = require("./routes/auth");
 const gamesRouter      = require("./routes/games");
 const charactersRouter = require("./routes/characters");
+const inventoryRouter = require("./routes/inventory");
+const itemsRouter     = require("./routes/items");
 
 const app    = express();
 const server = http.createServer(app);
@@ -25,6 +27,8 @@ app.use(express.json());
 app.use("/api/auth",       authRouter);
 app.use("/api/games",      gamesRouter);
 app.use("/api/characters", charactersRouter);
+app.use("/api/inventory", inventoryRouter);
+app.use("/api/items",     itemsRouter);
 
 // Serve item and enemy JSON files from the content folder.
 // A frontend fetch to /content/items/ancient-tome.json will return that file.

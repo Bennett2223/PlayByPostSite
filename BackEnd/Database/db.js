@@ -50,6 +50,7 @@ db.exec(`
     name      TEXT NOT NULL,
     class     TEXT NOT NULL,
     backstory TEXT,
+    strength_score INTEGER DEFAULT 10,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (game_id) REFERENCES games(id)
@@ -69,6 +70,22 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (game_id) REFERENCES games(id)
   );
+
+    -- strength_score defaults to 10 (average) until the character sheet is built.
+    -- This is the only stat we need right now since it drives carry weight.
+    CREATE TABLE IF NOT EXISTS character_inventory (
+        id            TEXT PRIMARY KEY,
+        character_id  TEXT NOT NULL,
+        game_id       TEXT NOT NULL,
+        item_id       TEXT NOT NULL,   -- references the JSON file id
+        quantity      INTEGER DEFAULT 1,
+        equipped      INTEGER DEFAULT 0,
+        equipped_slot TEXT,            -- which slot it occupies when equipped
+        granted_by    TEXT,            -- userId of DM who granted it, null if picked up
+        created_at    DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (character_id) REFERENCES characters(id),
+        FOREIGN KEY (game_id)      REFERENCES games(id)
+    );
 `);
 
 module.exports = db;

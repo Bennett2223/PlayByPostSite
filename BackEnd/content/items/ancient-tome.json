@@ -1,10 +1,14 @@
 {
   "id": "ancient-tome",
   "name": "Ancient Tome",
-  "description": "A weathered book bound in cracked leather, filled with pages of cryptic text in a language few can read.",
+  "description": "A weathered book bound in cracked leather, filled with cryptic text in a long-dead language.",
+  "image": "ancient-tome.png",
   "weight": 3,
   "cost": 50,
-  "tags": ["book", "magical", "quest-item"],
+  "rarity": "uncommon",
+  "requiresAttunement": false,
+  "tags": ["book", "magical"],
+  "equipment": null,
   "actions": [
     {
       "id": "examine",
@@ -20,21 +24,15 @@
         "type": "skill-check",
         "skill": "History",
         "dc": 15,
-        "success": "You successfully translate a passage revealing the location of a hidden vault beneath the city.",
-        "failure": "The script is ancient and too complex for you to decipher."
+        "success": "You translate a passage revealing the location of a hidden vault beneath the city.",
+        "failure": "The script is too ancient and complex for you to decipher."
       }
     },
     {
       "id": "pick-up",
       "label": "Pick Up",
-      "result": "You reach out and grasp the tome...",
-      "trigger": {
-        "type": "saving-throw",
-        "stat": "Constitution",
-        "dc": 12,
-        "success": "You feel a faint tingle as you lift it but nothing else happens.",
-        "failure": "A burst of necrotic energy surges through you. You take 1d6 psychic damage."
-      }
+      "result": "You carefully tuck the tome under your arm.",
+      "trigger": null
     }
   ]
 }

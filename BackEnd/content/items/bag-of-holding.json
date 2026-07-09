@@ -1,0 +1,32 @@
+{
+  "id": "bag-of-holding",
+  "name": "Bag of Holding",
+  "description": "A cloth sack that is larger on the inside than the outside. Its interior dimensions are roughly 2 feet wide and 4 feet deep.",
+  "image": null,
+  "weight": 15,
+  "cost": 4000,
+  "rarity": "uncommon",
+  "requiresAttunement": false,
+  "tags": ["container", "magical"],
+  "equipment": {
+    "slot": "container",
+    "container": {
+      "capacity": 500,
+      "weightless": false
+    }
+  },
+  "actions": [
+    {
+      "id": "examine",
+      "label": "Examine",
+      "result": "The bag appears ordinary from the outside but the interior is clearly much larger than it should be.",
+      "trigger": null
+    },
+    {
+      "id": "pick-up",
+      "label": "Pick Up",
+      "result": "You sling the bag over your shoulder. It's heavier than it looks.",
+      "trigger": null
+    }
+  ]
+}

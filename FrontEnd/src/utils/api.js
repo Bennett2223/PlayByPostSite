@@ -123,3 +123,46 @@ export async function createCharacter(gameId, characterData) {
   });
   return data.character;
 }
+// ── Inventory ──────────────────────────────────────────────────────────────
+
+export async function getInventory(gameId) {
+  return apiFetch(`/inventory/${gameId}`);
+}
+
+export async function addItemToInventory(gameId, itemId) {
+  return apiFetch(`/inventory/${gameId}/add`, {
+    method: "POST", body: { itemId },
+  });
+}
+
+export async function equipItem(gameId, inventoryId, slot, twoHanded = false) {
+  return apiFetch(`/inventory/${gameId}/${inventoryId}/equip`, {
+    method: "PUT", body: { slot, equip: true, twoHanded },
+  });
+}
+
+export async function unequipItem(gameId, inventoryId) {
+  return apiFetch(`/inventory/${gameId}/${inventoryId}/equip`, {
+    method: "PUT", body: { equip: false },
+  });
+}
+
+export async function removeItem(gameId, inventoryId) {
+  return apiFetch(`/inventory/${gameId}/${inventoryId}`, { method: "DELETE" });
+}
+
+export async function grantItem(gameId, characterId, itemId) {
+  return apiFetch(`/inventory/${gameId}/grant`, {
+    method: "POST", body: { characterId, itemId },
+  });
+}
+
+export async function getPartyInventory(gameId) {
+  return apiFetch(`/inventory/${gameId}/party`);
+}
+
+// ── Items ──────────────────────────────────────────────────────────────────
+
+export async function getAllItems() {
+  return apiFetch("/items");
+}

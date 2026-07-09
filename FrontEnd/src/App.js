@@ -136,12 +136,12 @@ function App() {
         case 1: return <DMPartyScreen />;
         case 2: return <DMEncounterScreen />;
         case 3: return <DMWorldMapScreen />;
-        case 4: return <DMItemsScreen />;
+        case 4: return <DMItemsScreen game={selectedGame} />;
         default: return <DMPartyScreen />;
       }
     } else {
       switch (activeTab) {
-        case 1: return <InventoryScreen />;
+        case 1: return <InventoryScreen character={character} game={selectedGame} />;
         case 2: return <CharacterScreen />;
         case 3: return <LocalMapScreen />;
         case 4: return <GlobalMapScreen />;

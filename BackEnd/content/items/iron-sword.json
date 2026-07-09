@@ -1,0 +1,30 @@
+{
+  "id": "iron-sword",
+  "name": "Iron Sword",
+  "description": "A dependable iron longsword. Not elegant, but reliable in a fight.",
+  "image": null,
+  "weight": 3,
+  "cost": 15,
+  "rarity": "common",
+  "requiresAttunement": false,
+  "tags": ["weapon", "martial", "melee"],
+  "equipment": {
+    "slot": "main-hand",
+    "twoHanded": false,
+    "modifiers": []
+  },
+  "actions": [
+    {
+      "id": "examine",
+      "label": "Examine",
+      "result": "A sturdy iron blade with a leather-wrapped grip. Well-balanced for its price.",
+      "trigger": null
+    },
+    {
+      "id": "pick-up",
+      "label": "Pick Up",
+      "result": "You heft the sword and give it a test swing.",
+      "trigger": null
+    }
+  ]
+}

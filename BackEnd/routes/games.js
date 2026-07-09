@@ -82,29 +82,26 @@ router.post("/join", (req, res) => {
 // Returns all members of a game who have a chat identity.
 // DMs use their username; players use their character name.
 router.get("/:gameId/members", (req, res) => {
-  const { gameId } = req.params;
-
   const members = db.prepare(`
     SELECT
       u.id        AS userId,
       u.username,
       m.role,
-      c.name      AS characterName
+      c.name      AS characterName,
+      c.id        AS characterId       -- added so DM can grant items
     FROM memberships m
     JOIN users u ON m.user_id = u.id
     LEFT JOIN characters c ON c.user_id = m.user_id AND c.game_id = m.game_id
     WHERE m.game_id = ?
-  `).all(gameId);
+  `).all(req.params.gameId);
 
-  // Build the authorName the same way ChatPanel does:
-  // DMs use username, players use character name.
-  // Members without a character name yet are excluded.
   const result = members
     .map(m => ({
-      userId:     m.userId,
-      username:   m.username,
-      role:       m.role,
-      authorName: m.role === "dm" ? m.username : m.characterName,
+      userId:      m.userId,
+      username:    m.username,
+      role:        m.role,
+      authorName:  m.role === "dm" ? m.username : m.characterName,
+      characterId: m.characterId || null,
     }))
     .filter(m => m.authorName !== null);
 
